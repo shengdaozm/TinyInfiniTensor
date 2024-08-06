@@ -44,3 +44,7 @@ build_debug/
 *.onnx
 *.pb
 *.npy
+
+# clion
+.idea
+cmake-build-debug

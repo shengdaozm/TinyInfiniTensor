@@ -24,17 +24,25 @@ namespace infini
 
     optional<vector<Shape>> TransposeObj::inferShape(const TensorVec &inputs)
     {
-        const auto A = inputs[0];
-        auto input_dim = A->getDims();
-        auto output_dim = input_dim;
-        int rank = A->getRank();
-
+        // 根据perm来调换顺序
+        vector<Shape> shapeVec;
+        for(auto &tensor:inputs) {
+            auto input_dim=tensor->getDims();
+            int rank=tensor->getRank();
+            Shape output_dim(rank);
+            auto perm=this->getPermute();
+            for(int i=0;i<rank;++i) {
+                output_dim[i]=input_dim[perm[i]];
+            }
+            shapeVec.push_back(output_dim);
+        }
         // =================================== 作业 ===================================
         // TODO：修改 output_dim，返回正确的 transpose 后的 shape
         // REF: https://onnx.ai/onnx/operators/onnx__Transpose.html#transpose-21
         // =================================== 作业 ===================================
 
-        return std::nullopt;
+
+        return {shapeVec};
     }
 
     std::string TransposeObj::toString() const
