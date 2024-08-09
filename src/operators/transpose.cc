@@ -26,13 +26,14 @@ namespace infini
     {
         // 根据perm来调换顺序
         vector<Shape> shapeVec;
-        for(auto &tensor:inputs) {
-            auto input_dim=tensor->getDims();
-            int rank=tensor->getRank();
+        size_t n= inputs.size();
+        for(size_t i=0;i<n;++i) {
+            auto input_dim = inputs[i]->getDims();
+            size_t rank = inputs[i]->getRank();
             Shape output_dim(rank);
-            auto perm=this->getPermute();
-            for(int i=0;i<rank;++i) {
-                output_dim[i]=input_dim[perm[i]];
+            auto perm = this->getPermute();
+            for (size_t j = 0; j < rank; ++j) {
+                output_dim[j] = input_dim[perm[j]];
             }
             shapeVec.push_back(output_dim);
         }

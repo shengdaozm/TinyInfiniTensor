@@ -72,7 +72,9 @@ namespace infini
         // REF_FILE: src/core/operator.cc
         // REF: https://onnx.ai/onnx/operators/onnx__Cast.html#cast-21
         // =================================== 作业 ===================================
-        return {};
+        vector <DataType> castResult;
+        castResult.push_back(this->getOutputDataType());
+        return {castResult};
     }
 
     optional<vector<Shape>> CastObj::inferShape(const TensorVec &inputs)
@@ -81,7 +83,12 @@ namespace infini
         // TODO：返回经过 cast 操作后的 shape
         // REF: https://onnx.ai/onnx/operators/onnx__Cast.html#cast-21
         // =================================== 作业 ===================================
-        return std::nullopt;
+        // cast不是不改变shape？
+        vector<Shape> shapeVec;
+        for(auto &tensor :inputs) {
+            shapeVec.push_back(tensor->getDims());
+        }
+        return {shapeVec};
     }
 
     std::string CastObj::toString() const
