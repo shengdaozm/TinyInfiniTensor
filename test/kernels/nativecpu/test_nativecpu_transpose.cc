@@ -15,10 +15,12 @@ TEST(Transpose, NativeCpu) {
     auto input = g->addTensor({1, 2, 3, 4}, DataType::Float32);
     auto op = g->addOp<TransposeObj>(input, nullptr, permute);
     g->dataMalloc();
+    printf("===2\n");
     input->setData(IncrementalGenerator());
-
+    printf("===3\n");
     runtime->run(g);
 
+    printf("===4\n");
     EXPECT_TRUE(op->getOutput(0)->equalData(vector<float>{0, 1, 2, 3, 12, 13, 14, 15,
                                                           4, 5, 6, 7, 16, 17, 18, 19,
                                                           8, 9, 10, 11, 20, 21, 22, 23}));

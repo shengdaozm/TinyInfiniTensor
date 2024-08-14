@@ -42,7 +42,7 @@ private:
 
   std::set<freeBlockInfo,cmpFreeBlockInfo> freeBlocks;
   std::unordered_map<size_t, size_t> headAddrMap; 
-  std::unordered_map<size_t, size_t> tailAddrMap; 
+  std::unordered_map<size_t, size_t> tailAddrMap;
 
 public:
   explicit Allocator(Runtime runtime);
